@@ -1,0 +1,42 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+h2 {
+    background-color: rgb(78, 184, 184);
+    padding: 1%;
+    border-radius: 30px 30px 0 0;
+    color: white;
+}
+
+h3 {
+    color: rgb(78, 184, 184);
+}
+
+header, footer {
+    background-color: rgb(86, 117, 117);
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.contenedorViajes, .contenedorPlanes, .contenedorAgregarViaje, .contenedorReportes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.contenedorFuturos, .contenedorRealizados, .viajeFormulario, .viajeSubirArchivo, .agregarVuelo, .agregarReserva, .agregarPlan, .generarReporteUsuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 30px 0 30px;
+}
+

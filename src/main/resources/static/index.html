@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <header>
+        <h1>Agencia de viajes</h1>
+    </header>
+
+    <h2>Mis viajes</h2>
+
+    <section class="contenedorViajes">
+        <div class="contenedorFuturos">
+            <h3>Viajes futuros</h3>
+            <table id="viajesFuturos">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Ciudad</th>
+                        <th>Continente</th>
+                        <th>Dia inic.</th>
+                        <th>Mes inic.</th>
+                        <th>Año inic.</th>
+                        <th>Dia fin</th>
+                        <th>Mes fin</th>
+                        <th>Año fin</th>
+                        <th>Descrip.</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaViajesFuturos">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="contenedorRealizados">
+            <table id="viajesRealizados">
+                <h3>Viajes realizados</h3>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Ciudad</th>
+                        <th>Continente</th>
+                        <th>Dia inic.</th>
+                        <th>Mes inic.</th>
+                        <th>Año inic.</th>
+                        <th>Dia fin</th>
+                        <th>Mes fin</th>
+                        <th>Año fin</th>
+                        <th>Descrip.</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaViajesRealizados">
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <h2> Planes </h2>
+    <div id="mostrarPlanes">
+
+    </div>
+
+    <h2>Nuevo viaje</h2>
+
+    <section class="contenedorAgregarViaje">
+        <div class="viajeFormulario">
+            <h3>Completar formulario</h3>
+            <form id="agregarViaje" action="">
+                <label for="nombreViaje">Nombre de viaje:</label>
+                <input type="text" id="nombreViaje" name="nombreViaje" required><br><br>
+            
+                <label for="ciudadDestino">Ciudad de destino:</label>
+                <input type="text" id="ciudadDestino" name="ciudadDestino" required><br><br>
+        
+                <label for="continenteDestino">Continente de destino:</label>
+                <input type="text" id="continenteDestino" name="continenteDestino" required><br><br>
+            
+                <label for="diaInicio">Dia de inicio:</label>
+                <input type="number" id="diaInicio" name="diaInicio" required><br><br>
+
+                <label for="mesInicio">Mes de inicio:</label>
+                <input type="number" id="mesInicio" name="mesInicio" required><br><br>
+
+                <label for="anioInicio">Año de inicio:</label>
+                <input type="number" id="anioInicio" name="anioInicio" required><br><br>
+
+                <label for="diaFin">Dia fin:</label>
+                <input type="number" id="diaFin" name="diaFin" required><br><br>
+
+                <label for="mesFin">Mes fin:</label>
+                <input type="number" id="mesFin" name="mesFin" required><br><br>
+
+                <label for="anioFin">Año fin:</label>
+                <input type="number" id="anioFin" name="anioFin" required><br><br>
+        
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" required><br><br>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+        <div class="viajeSubirArchivo">
+            <h3>Subir archivo de texto</h3>
+            <input type="file" id="archivoDeTextoViaje" name="archivoDeTextoViaje"/>
+        </div>
+    </section>
+
+    <h2>Nuevo Plan</h2>
+
+    <section class="contenedorPlanes">
+        <div class="agregarVuelo">
+            <h3>Vuelo</h3>
+            <select name="select">
+                <option value="vueloFormulario">Agregar por formulario</option>
+                <!-- Acá tendría un select para elegir el viaje asociado al vuelo.
+                    Acá también iría el formulario para que el usuario llene el vuelo. -->
+                <option value="vueloAutomatico">Agregar automáticamente</option>  
+            </select>
+
+            <select name="select" class="planViajes"></select>
+
+            <label for="nroVuelo">Número de vuelo:</label>
+            <input type="number" id="nroVuelo" name="nroVuelo" required><br><br>
+        
+            <label for="fechaVuelo">Fecha:</label>
+            <input type="date" id="fechaVuelo" name="fechaVuelo" required><br><br>
+
+            <label for="compania">Compañia:</label>
+            <input type="text" id="compania" name="compania" required><br><br>
+        </div>
+
+        <div class="agregarReserva">
+            <h3>Reserva</h3>
+            <select name="select">
+                <option value="reservaFormulario">Agregar por formulario</option>
+                <!-- Acá tendría un select para elegir el viaje asociado al vuelo.
+                Acá también iría el formulario para que el usuario llene el vuelo. -->
+                <option value="cargarArchivo">Cargar archivo</option> <!--Ubicar la reserva según viaje--> 
+            </select>
+
+            <!--El filtrado de viaje aparece cuando selecciona el formulario-->
+            <select name="select" class="planViajes">Seleccionar viaje</select>
+        
+            <label for="ciudadDestinoHotel">Ciudad de destino:</label>
+            <input type="text" id="ciudadDestinoHotel" name="ciudadDestinoHotel" required><br><br>
+    
+            <label for="hotel">Hotel:</label>
+            <input type="text" id="hotel" name="hotel" required><br><br>
+        
+            <label for="fechaInicioHotel">Fecha de inicio:</label>
+            <input type="date" id="fechaInicioHotel" name="fechaInicioHotel" required><br><br>
+    
+            <label for="fechaFinHotel">Fecha de fin:</label>
+            <input type="date" id="fechaFinHotel" name="fechaFinHotel" required><br><br>
+        </div>
+
+        <div class="agregarPlan">
+            <h3>Otro Plan</h3>
+            <select name="select" class="planViajes"></select>
+            <label for="tipoDePlan">Tipo de plan:</label>
+            <input type="text" id="tipoDePlan" name="tipoDePlan" required><br><br> 
+            <label for="ciudadDePlan">Ciudad:</label>
+            <input type="text" id="ciudadDePlan" name="ciudadDePlan" required><br><br>
+        </div>
+    </section>
+
+    <h2>Reportes</h2>
+
+    <section class="contenedorReportes">
+        <div class="generarReporteUsuario">
+            <h3>Reporte de Usuario</h3>
+            <select name="select">
+                <option value="pendientes">Planes pendientes</option>
+                <option value="realizados">Planes realizados</option>
+                <option value="rangoFecha">Rango de fecha</option>
+                <option value="zonaGeografica">Zona geográfica</option>     
+            </select>
+        </div>
+
+        <div class="generarReporteCompania">
+            <h3>Reporte de Compañia</h3>
+            <select name="select">
+                <option value="pendientes">Usuarios con más viajes</option>
+                <option value="zonaGeografica">Zona geográfica</option>     
+            </select>
+        </div>
+    </section>
+
+    <footer>
+        <p>Arquitecturas Web</p>
+    </footer>
+
+    <script src="js/js.js"></script>
+
+</body>
+</html>
