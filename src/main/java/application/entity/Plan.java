@@ -22,8 +22,8 @@ public class Plan {
 	protected String name;
 	@Column
 	protected String description;
-	/*@Column
-	protected boolean finished;*/
+	@Column
+	protected boolean finished;
 	@Column
 	protected String country;
 	@Column
@@ -42,10 +42,10 @@ public class Plan {
 	@ManyToOne
 	private Travel travel;
 
-	public Plan(String name, String description, String country, Travel travel, Integer day_start, Integer month_start, Integer year_start, Integer day_end, Integer month_end, Integer year_end) {
+	public Plan(String name, String description, String country, Travel travel, Integer day_start, Integer month_start, Integer year_start, Integer day_end, Integer month_end, Integer year_end, boolean finished) {
 		this.name = name;
 		this.description = description;
-		//this.finished = finished;
+		this.finished = finished;
 		this.country = country;
 		this.day_start = day_start;
 		this.month_start = month_start;
@@ -56,15 +56,6 @@ public class Plan {
 		this.travel = travel;
 	}
 
-	/*public Plan(String name, String description, boolean finished, String country, Travel travel) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.finished = finished;
-		this.country = country;
-		this.travel = travel;
-	}*/
-	
 	public Plan() {
 		
 	}
@@ -89,13 +80,13 @@ public class Plan {
 		return id;
 	}
 
-	/*public boolean isFinished() {
+	public boolean isFinished() {
 		return finished;
 	}
 
 	public void setFinished(boolean finished) {
 		this.finished = finished;
-	}*/
+	}
 
 	public String getCountry() {
 		return country;
@@ -153,5 +144,8 @@ public class Plan {
 		this.year_end = year_end;
 	}
 
+	public void setTravel(Travel t) {
+		this.travel = t;
+	}
 
 }

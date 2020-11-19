@@ -3,6 +3,9 @@ package application.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.entity.Excursion;
+import application.entity.Travel;
+import application.repository.TravelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,12 +25,16 @@ import application.repository.HotelRepository;
 @RequestMapping("hotels")
 public class HotelControllerJPA {
 
-    @Qualifier("HotelRepository")
+    @Qualifier("hotelRepository")
     @Autowired
     private final HotelRepository repository;
+    @Qualifier("travelRepository")
+    @Autowired
+    private final TravelRepository repoTravel;
 
-    public HotelControllerJPA(@Qualifier("HotelRepository") HotelRepository repository) {
+    public HotelControllerJPA(@Qualifier("hotelRepository") HotelRepository repository, @Qualifier("travelRepository") TravelRepository repoTravel) {
         this.repository = repository;
+        this.repoTravel = repoTravel;
     }
 
     @GetMapping("/")
@@ -38,10 +45,17 @@ public class HotelControllerJPA {
         return lista;
     }
 
-    @PostMapping("/")
-    public Hotel newHotel(@RequestBody Hotel h) {
+    @PostMapping("/{id}") //{id} de travel
+    public Hotel newHotel(@RequestBody Hotel h, @PathVariable long id) {
+        Travel t1 = repoTravel.getId(id);
+        h.setTravel(t1);
         return repository.save(h);
     }
+
+    /*@PostMapping("/")
+    public Hotel newHotel(@RequestBody Hotel h) {
+        return repository.save(h);
+    }*/
 
     @DeleteMapping("/{id}")
     public void deleteHotel(@PathVariable long id) {

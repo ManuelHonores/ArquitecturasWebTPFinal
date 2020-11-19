@@ -3,6 +3,9 @@ package application.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.entity.Hotel;
+import application.entity.Travel;
+import application.repository.TravelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,9 +27,13 @@ public class FlyControllerJPA {
     @Qualifier("flyRepository")
     @Autowired
     private final FlyRepository repository;
+    @Qualifier("travelRepository")
+    @Autowired
+    private final TravelRepository repoTravel;
 
-    public FlyControllerJPA(@Qualifier("flyRepository") FlyRepository repository) {
+    public FlyControllerJPA(@Qualifier("flyRepository") FlyRepository repository, @Qualifier("travelRepository") TravelRepository repoTravel) {
         this.repository = repository;
+        this.repoTravel = repoTravel;
     }
 
     @GetMapping("/")
@@ -37,14 +44,21 @@ public class FlyControllerJPA {
         return lista;
     }
 
-    @PostMapping("/")
+    /*@PostMapping("/")
     public Fly newFly(@RequestBody Fly f) {
         return repository.save(f);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public void deleteFly(@PathVariable long id) {
         repository.deleteById(id);
+    }
+
+    @PostMapping("/{id}") //{id} de travel
+    public Fly newFly(@RequestBody Fly f, @PathVariable long id) {
+        Travel t1 = repoTravel.getId(id);
+        f.setTravel(t1);
+        return repository.save(f);
     }
 
     /*@PutMapping("/{id}")

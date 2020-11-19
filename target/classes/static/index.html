@@ -99,7 +99,7 @@
                 <input type="number" id="anioFin" name="anioFin" required><br><br>
         
                 <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" name="descripcion" required><br><br>
+                <input type="text" id="descripcionPlan" name="descripcion" required><br><br>
                 <input type="submit" value="Enviar">
             </form>
         </div>
@@ -110,9 +110,27 @@
     </section>
 
     <h2>Nuevo Plan</h2>
+    <div>
+        <label for="nombrePlan">Nombre plan:</label>
+        <input type="text" id="nombrePlan" name="nombrePlan" required><br><br>
 
+        <label for="descripcion">Descripción</label>
+        <input type="text" id="descripcion" name="descripcion" required><br><br>
+
+        <label for="pais">País:</label>
+        <input type="text" id="pais" name="pais" required><br><br>
+
+        <label for="fechaInicioPlan">Fecha inicio plan:</label>
+        <input type="date" id="fechaInicioPlan" name="fechaPlan" required><br><br>
+
+        <label for="fechaFinPlan">Fecha fin plan:</label>
+        <input type="date" id="fechaFinPlan" name="fechaPlan" required><br><br>
+
+        <select name="select" class="planViajes"></select>
+    </div>
     <section class="contenedorPlanes">
-        <div class="agregarVuelo">
+
+        <form class="agregarVuelo">
             <h3>Vuelo</h3>
             <select name="select">
                 <option value="vueloFormulario">Agregar por formulario</option>
@@ -121,19 +139,43 @@
                 <option value="vueloAutomatico">Agregar automáticamente</option>  
             </select>
 
-            <select name="select" class="planViajes"></select>
-
             <label for="nroVuelo">Número de vuelo:</label>
             <input type="number" id="nroVuelo" name="nroVuelo" required><br><br>
         
-            <label for="fechaVuelo">Fecha:</label>
-            <input type="date" id="fechaVuelo" name="fechaVuelo" required><br><br>
+            <label for="fechaVueloInicio">Fecha inicio:</label>
+            <input type="date" id="fechaVueloInicio" name="fechaVuelo" required><br><br>
+
+            <label for="horaVueloInicio">Hora inicio:</label>
+            <input type="number" id="horaVueloInicio" name="horaVueloInicio" min="0" max="24" required><br><br>
+
+            <label for="fechaVueloFin">Fecha fin:</label>
+            <input type="date" id="fechaVueloFin" name="fechaVuelo" required><br><br>
+
+            <label for="horaVueloFin">Hora fin:</label>
+            <input type="number" id="horaVueloFin" name="horaVueloFin" min="0" max="24" required><br><br>
 
             <label for="compania">Compañia:</label>
             <input type="text" id="compania" name="compania" required><br><br>
-        </div>
 
-        <div class="agregarReserva">
+            <label for="aeropuertoSalida">Aeropuerto salida:</label>
+            <input type="text" id="aeropuertoSalida" name="aeropuertoSalida" required><br><br>
+
+            <label for="aeropuertoLlegada">Aeropuerto llegada:</label>
+            <input type="text" id="aeropuertoLlegada" name="aeropuertoLlegada" required><br><br>
+
+            <label for="codigoReserva">Codigo reserva:</label>
+            <input type="text" id="codigoReserva" name="codigoReserva" required><br><br>
+
+            <label for="infoAeropuerto">Información Aeropuerto:</label>
+            <input type="text" id="infoAeropuerto" name="infoAeropuerto" required><br><br>
+
+            <label for="escalaTiempo">Escala de tiempo:</label>
+            <input type="number" id="escalaTiempo" name="escalaTiempo" required><br><br>
+
+            <input type="submit">
+        </form>
+
+        <form class="agregarReserva">
             <h3>Reserva</h3>
             <select name="select">
                 <option value="reservaFormulario">Agregar por formulario</option>
@@ -141,49 +183,61 @@
                 Acá también iría el formulario para que el usuario llene el vuelo. -->
                 <option value="cargarArchivo">Cargar archivo</option> <!--Ubicar la reserva según viaje--> 
             </select>
-
-            <!--El filtrado de viaje aparece cuando selecciona el formulario-->
-            <select name="select" class="planViajes">Seleccionar viaje</select>
-        
-            <label for="ciudadDestinoHotel">Ciudad de destino:</label>
-            <input type="text" id="ciudadDestinoHotel" name="ciudadDestinoHotel" required><br><br>
     
             <label for="hotel">Hotel:</label>
             <input type="text" id="hotel" name="hotel" required><br><br>
-        
-            <label for="fechaInicioHotel">Fecha de inicio:</label>
-            <input type="date" id="fechaInicioHotel" name="fechaInicioHotel" required><br><br>
-    
-            <label for="fechaFinHotel">Fecha de fin:</label>
-            <input type="date" id="fechaFinHotel" name="fechaFinHotel" required><br><br>
-        </div>
 
-        <div class="agregarPlan">
-            <h3>Otro Plan</h3>
-            <select name="select" class="planViajes"></select>
-            <label for="tipoDePlan">Tipo de plan:</label>
-            <input type="text" id="tipoDePlan" name="tipoDePlan" required><br><br> 
-            <label for="ciudadDePlan">Ciudad:</label>
-            <input type="text" id="ciudadDePlan" name="ciudadDePlan" required><br><br>
-        </div>
+            <input type="submit">
+        </form>
+
+        <form class="agregarPlan">
+            <h3>Excursión</h3>
+
+            <label for="lugar">Lugar:</label>
+            <input type="text" id="lugar" name="lugar" required><br><br>
+
+            <label for="duracion">Duración:</label>
+            <input type="text" id="duracion" name="duracion" required><br><br>
+
+            <input type="submit">
+        </form>
     </section>
 
     <h2>Reportes</h2>
 
     <section class="contenedorReportes">
-        <div class="generarReporteUsuario">
+        <form class="generarReporteUsuario">
             <h3>Reporte de Usuario</h3>
-            <select name="select">
-                <option value="pendientes">Planes pendientes</option>
-                <option value="realizados">Planes realizados</option>
-                <option value="rangoFecha">Rango de fecha</option>
-                <option value="zonaGeografica">Zona geográfica</option>     
+            <label for="selectUserReports">Tipo reporte:</label>
+            <select name="select" id="selectUserReports">
+                <option value="users/nofinished/">Planes pendientes</option>
+                <option value="users/finished/">Planes realizados</option>
+                <option value="users/reportDays/">Rango de fecha</option>
+                <option value="zonaGeografica/">Zona geográfica</option>
             </select>
+
+            <label for="continents">Continente:</label>
+            <select id="continents" disabled>
+
+            </select>
+
+            <label for="fechaInicioReporte">Fecha inicio:</label>
+            <input type="date" id="fechaInicioReporte" name="fechaInicioReporte" required disabled><br><br>
+
+            <label for="fechaFinReporte">Fecha fin:</label>
+            <input type="date" id="fechaFinReporte" name="fechaFinReporte" required disabled><br><br>
+
+        </form>
+
+        <input type="button" value="Generar reporte" id="btnReport">
+
+        <div id="showReports">
+
         </div>
 
         <div class="generarReporteCompania">
             <h3>Reporte de Compañia</h3>
-            <select name="select">
+            <select name="select" id="selectCompanyReports">
                 <option value="pendientes">Usuarios con más viajes</option>
                 <option value="zonaGeografica">Zona geográfica</option>     
             </select>

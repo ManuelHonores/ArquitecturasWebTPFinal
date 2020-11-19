@@ -1,6 +1,8 @@
 package application.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import application.entity.Plan;
@@ -63,31 +65,58 @@ public class UserControllerJPA {
         });
     }
 
-    /*@GetMapping("/finished/{id}")
+    @GetMapping("/finished/{id}")
     List<Plan> reportPlansFinished(@PathVariable long id) {
-        List<Plan> listFinished = new ArrayList<Plan>();
+        List<Plan> listFinished = null;
         listFinished = repository.reportPlansFinished(id);
         return listFinished;
     }
 
     @GetMapping("/nofinished/{id}")
     List<Plan> reportPlansNoFinished(@PathVariable long id) {
-        List<Plan> listNoFinished = new ArrayList<Plan>();
+        List<Plan> listNoFinished = null;
         listNoFinished = repository.reportPlansNoFinished(id);
         return listNoFinished;
-    }*/
+    }
 
-    @GetMapping("/plans/{id}")
+    @GetMapping("/plans/{id}") // id del usuario
     List<Plan> reportPlans(@PathVariable long id) {
         List<Plan> plansUser = null;
         plansUser = repository.reportPlans(id);
         return plansUser;
     }
 
+    /*@GetMapping("/reportDays/{id}/{dayS}/{monthS}/{yearS}/{dayE}/{monthE}/{yearE}") //Esto es horrible, preguntar
+    List<Plan> reportDates(@PathVariable long id, @PathVariable int dayS, @PathVariable int monthS, @PathVariable int yearS, @PathVariable int dayE, @PathVariable int monthE, @PathVariable int yearE) {
+        List<Plan> reportDates = null;
+        System.out.println("Id:" + id + " DiaInicio: " + dayS + " MesI: " + monthS + " AnoI:" + yearS);
+        System.out.println("Id:" + id + " DiaInicio: " + dayE + " MesI: " + monthE + " AnoI:" + yearE);
+        reportDates = repository.reportDates(id, dayS, monthS, yearS, dayE, monthE, yearE);
+        System.out.println(reportDates);
+        return reportDates;
+    }*/
+
     @GetMapping("/reportDays/{id}/{dayS}/{monthS}/{yearS}/{dayE}/{monthE}/{yearE}") //Esto es horrible, preguntar
     List<Plan> reportDates(@PathVariable long id, @PathVariable int dayS, @PathVariable int monthS, @PathVariable int yearS, @PathVariable int dayE, @PathVariable int monthE, @PathVariable int yearE) {
+        List<Plan> allPlans = repository.reportPlans(id);
         List<Plan> reportDates = new ArrayList<Plan>();
-        reportDates = repository.reportDates(id, dayS, monthS, yearS, dayE, monthE, yearE);
+        Calendar fechaI = Calendar.getInstance();
+        fechaI.set(yearS, monthS, dayS);
+        Calendar fechaF = Calendar.getInstance();
+        fechaF.set(yearE, monthE, dayE);
+
+        Calendar fechaReportStart = Calendar.getInstance();
+        Calendar fechaReportEnd = Calendar.getInstance();
+
+
+        for(int i=0; i<allPlans.size(); i++) {
+            fechaReportStart.set(allPlans.get(i).getYear_start(), allPlans.get(i).getMonth_start(), allPlans.get(i).getDay_start());
+            fechaReportEnd.set(allPlans.get(i).getYear_end(), allPlans.get(i).getMonth_end(), allPlans.get(i).getDay_end());
+            if((fechaI.compareTo(fechaReportStart) < 0) && (fechaF.compareTo(fechaReportEnd) > 0)) {
+                reportDates.add(allPlans.get(i));
+            }
+        }
+        //reportDates = repository.reportDates(id, dayS, monthS, yearS, dayE, monthE, yearE);
         System.out.println(reportDates);
         return reportDates;
     }

@@ -39,8 +39,8 @@ public class Insert {
             return args -> {
                 User u1 = new User("Pablo", "p@gmail.com", "elloquito1887");
                 Travel viaje1 = new Travel("boda", "Gualeguaychu", "AmericaSur", 1, 10, 2020, 12, 12, 2020, "viaje medio pelo", u1);
-                Plan plan2 = new Hotel("Paraiso", "A 2 cuadras del centro", "Gualeguaychu", viaje1, 10, 11, 2020, 14, 11, 2020);
-                Plan plan3 = new Excursion("asd", 120, "Excursion1", "Descripcion1", "Normandia", viaje1, 10, 10, 2020, 10, 10, 2020);
+                Plan plan2 = new Hotel("Paraiso", "A 2 cuadras del centro", "Gualeguaychu", viaje1, 10, 11, 2020, 14, 11, 2020, "Sheraton", true);
+                Plan plan3 = new Excursion("asd", 120, "Excursion1", "Descripcion1", "Normandia", viaje1, 10, 10, 2020, 10, 10, 2020, false);
 
                 viaje1.addPlan(plan2);
                 viaje1.addPlan(plan3);

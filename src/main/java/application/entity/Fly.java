@@ -43,8 +43,8 @@ public class Fly extends Plan{
 
 	public Fly(){}
 
-	public Fly(String company, Integer day_departure_date, Integer month_departure_date, Integer year_departure_date, int departure_hour, String departure_airport, Integer day_return_date, Integer month_return_date, Integer year_return_date, int return_hour, String return_airport, String reserve_code, String info_airplane, int scale_time, String place, int duration, String name, String description, String country, Travel travel, Integer day_start_date, Integer month_start_date, Integer year_start_date, Integer day_end_date, Integer month_end_date, Integer year_end_date) {
-		super(name, description, country, travel, day_start_date, month_start_date, year_start_date, day_end_date, month_end_date, year_end_date);
+	public Fly(String company, Integer day_departure_date, Integer month_departure_date, Integer year_departure_date, int departure_hour, String departure_airport, Integer day_return_date, Integer month_return_date, Integer year_return_date, int return_hour, String return_airport, String reserve_code, String info_airplane, int scale_time, String place, int duration, String name, String description, String country, Travel travel, Integer day_start_date, Integer month_start_date, Integer year_start_date, Integer day_end_date, Integer month_end_date, Integer year_end_date, boolean finished) {
+		super(name, description, country, travel, day_start_date, month_start_date, year_start_date, day_end_date, month_end_date, year_end_date, finished);
 		this.company = company;
 		this.day_departure_date = day_departure_date;
 		this.month_departure_date = month_departure_date;
