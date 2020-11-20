@@ -11,6 +11,10 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    // Encontrar el usuario que coincida con el mail
+    @Query("SELECT u FROM User u WHERE u.mail =:mail")
+    public User getByMail(String mail);
+
     // Reporte de planes finalizados
     @Query("SELECT p FROM Plan p WHERE p.finished=true AND p.travel.user.id =:id")
     public List<Plan> reportPlansFinished(Long id);

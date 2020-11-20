@@ -409,3 +409,71 @@ function showReports(plan) {
             + str + "</ul>"
     }
 }
+
+
+//Reportes compania
+
+//Login
+
+let token = null;
+
+let formLogin = document.getElementById("formLogin");
+if(formLogin != null) {
+    formLogin.addEventListener("submit", login)
+}
+
+async function login() {
+    let mail = document.getElementById("mailLogin").value;
+    let pass = document.getElementById("passwordLogin").value;
+
+    let data = {
+        "mail" : mail,
+        "password" : pass
+    }
+
+    await fetch('login/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            token = response.text();
+            console.log(token);
+            //getViajes();
+        })
+        .catch(error => console.log(error));
+
+    //Ocultar el login luego de que termine de loguearse
+}
+
+let formRegister = document.getElementById("formRegister");
+if(formRegister != null) {
+    formRegister.addEventListener("submit", register)
+}
+
+async function register(e) {
+    e.preventDefault();
+    let name = document.getElementById("nameRegister").value;
+    let mail = document.getElementById("mailRegister").value;
+    let pass = document.getElementById("passwordRegister").value;
+
+    let data = {
+        "name" : name,
+        "mail" : mail,
+        "password" : pass
+    }
+
+    await fetch('login/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            token = response.text();
+            console.log(token);
+            //getViajes();
+        })
+        .catch(error => console.log(error));
+
+    //Ocultar el login luego de que termine de loguearse
+}

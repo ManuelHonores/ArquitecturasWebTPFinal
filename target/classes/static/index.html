@@ -7,10 +7,36 @@
     <title>Document</title>
 </head>
 <body>
-    
+
     <header>
         <h1>Agencia de viajes</h1>
     </header>
+
+    <!-- Login -->
+
+    <section>
+        <h3>Iniciar Sesion</h3>
+        <form id="formLogin">
+            <label for="mailLogin">Mail:</label>
+            <input id="mailLogin" type="email" placeholder="abc@mail.com" required>
+            <label for="passwordLogin">Contraseña:</label>
+            <input id="passwordLogin" type="password" placeholder="password" required>
+            <input type="submit" value="Iniciar sesión">
+        </form>
+        <h3>Registrarse</h3>
+        <form id="formRegister">
+            <label for="nameRegister">Nombre:</label>
+            <input id="nameRegister" type="text" placeholder="abc" required>
+            <label for="mailRegister">Mail:</label>
+            <input id="mailRegister" type="email" placeholder="abc@mail.com" required>
+            <label for="passwordRegister">Contraseña:</label>
+            <input id="passwordRegister" type="password" placeholder="Contraseña" required>
+            <input type="submit" value="Registrarse">
+        </form>
+    </section>
+
+    <!-- Fin Login -->
+
 
     <h2>Mis viajes</h2>
 
@@ -228,13 +254,6 @@
             <input type="date" id="fechaFinReporte" name="fechaFinReporte" required disabled><br><br>
 
         </form>
-
-        <input type="button" value="Generar reporte" id="btnReport">
-
-        <div id="showReports">
-
-        </div>
-
         <div class="generarReporteCompania">
             <h3>Reporte de Compañia</h3>
             <select name="select" id="selectCompanyReports">
@@ -243,6 +262,16 @@
             </select>
         </div>
     </section>
+
+    <input type="button" value="Generar reporte" id="btnReport">
+
+    <div id="showReports">
+        <p>hola genteeeeeeeeeee</p>
+        <p>hola genteeeeeeeeeee</p>
+        <p>hola genteeeeeeeeeee</p>
+        <p>hola genteeeeeeeeeee</p>
+        <p>hola genteeeeeeeeeee</p>
+    </div>
 
     <footer>
         <p>Arquitecturas Web</p>
