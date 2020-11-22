@@ -1,13 +1,16 @@
 "use strict";
 
 // Agregar un viaje por Formulario
+let token = null;
+let usuario = null;
 
 let formViaje = document.getElementById("agregarViaje");
 if (formViaje != null) {
     formViaje.addEventListener("submit", addViaje);
 }
 
-function addViaje() {
+function addViaje(e) {
+    e.preventDefault()
     let viaje = {
         name: document.getElementById("nombreViaje").value,
         destinity_city: document.getElementById("ciudadDestino").value,
@@ -18,11 +21,14 @@ function addViaje() {
         day_end_date: document.getElementById("diaFin").value,
         month_end_date: document.getElementById("mesFin").value,
         year_end_date: document.getElementById("anioFin").value,
-        description: document.getElementById("descripcion").value,
+        description: document.getElementById("descripcionViaje").value
     }
     fetch('travels/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : token
+        },
         body: JSON.stringify(viaje)
     })
         .then(response => {
@@ -34,16 +40,30 @@ function addViaje() {
 
 
 // Obtener viajes, tanto los futuros como los realizados.
-
+let btn = document.getElementById('btn-viajes').addEventListener('click', getViajes)
 function getViajes() {
-    fetch('travels/')
+    console.log("este es el token: " + token)
+    document.getElementById('tablaViajesFuturos').innerHTML = ""
+    document.getElementById('tablaViajesRealizados').innerHTML = ""
+    fetch('travels/',{
+        method : 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : token
+        }
+    })
         .then(response => response.json())
         .then(resp => {
-            for (const elem of resp) {
-                agregarViajesEnTablas(elem.name, elem.destinity_city, elem.continent, elem.day_start_date, elem.month_start_date, elem.year_start_date, elem.day_end_date, elem.month_end_date, elem.year_end_date, elem.description);
-                selectContinents(elem.continent)
+            if(resp!=null){
+                for (const elem of resp) {
+                    agregarViajesEnTablas(elem.name, elem.destinity_city, elem.continent, elem.day_start_date, elem.month_start_date, elem.year_start_date, elem.day_end_date, elem.month_end_date, elem.year_end_date, elem.description);
+                    selectContinents(elem.continent)
+                    getPlanes(elem.id);
+                }
+
             }
-            getPlanes();
+
+
             selectViajes(resp);
         })
         .catch(error => console.log(error));
@@ -70,8 +90,15 @@ function agregarViajesEnTablas(name, destinity_city, continent, day_start_date, 
     }
 }
 
-function getPlanes() {
-    fetch('plans/')
+function getPlanes(id) {
+    document.getElementById('mostrarPlanes').innerHTML = ""
+    fetch('plans/' + id, {
+        method : 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : token
+        }
+    })
         .then(response => response.json())
         .then(resp => {
             for (const elem of resp) {
@@ -115,22 +142,24 @@ function agregarPlanesEnTabla(plan) {
 }
 
 function selectViajes(data) {
-    let selectTravel = document.querySelectorAll(".planViajes");
-    for(let j=0; j < selectTravel.length; j++) {
-        for (let i = 0; i < data.length; i++) {
-            selectTravel[j].innerHTML += "<option value=" + data[i].id + ">"
-                + "Nombre: " + data[i].name + " Destino: " + data[i].destinity_city
-                + "</option>"
-        }
+    let selectTravel = document.getElementById("planViajes");
+    selectTravel.innerHTML = "";
+    //for(let j=0; j < selectTravel.length; j++) {
+    for (let i = 0; i < data.length; i++) {
+        selectTravel.innerHTML += "<option value=" + data[i].id + ">"
+            + "Nombre: " + data[i].name + " Destino: " + data[i].destinity_city
+            + "</option>"
     }
+    //}
 }
 
-getViajes();
+//getViajes();
 
 let formVuelo = document.querySelector(".agregarVuelo");
 if(formVuelo!=null){
-    formVuelo.addEventListener('submit', async function(){
-        let idViaje = document.querySelector(".planViajes").value;
+    formVuelo.addEventListener('submit', async function(e){
+        e.preventDefault();
+        let idViaje = document.getElementById("planViajes").value;
         let fechaInicio = document.getElementById("fechaVueloInicio").value
         let fechaIni = new Date(fechaInicio)
         let fechaFin = document.getElementById("fechaVueloFin").value
@@ -174,7 +203,10 @@ if(formVuelo!=null){
         console.log(vuelo)
         await fetch('flies/' + idViaje, {
             method : 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : token
+            },
             body: JSON.stringify(vuelo)
         }).then(response => {
             getViajes();
@@ -184,8 +216,9 @@ if(formVuelo!=null){
 
 let formHotel = document.querySelector(".agregarReserva");
 if(formHotel!=null){
-    formHotel.addEventListener('submit', async function() {
-        let idViaje = document.querySelector(".planViajes").value;
+    formHotel.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        let idViaje = document.getElementById("planViajes").value;
         let fechaInicioPlan = document.getElementById("fechaInicioPlan").value
         let fechaIniPlan = new Date(fechaInicioPlan)
         let fechaFinPlan = document.getElementById("fechaFinPlan").value
@@ -198,7 +231,7 @@ if(formHotel!=null){
         }
         let hotel = {
             "name" : document.getElementById('nombrePlan').value,
-            "description" : document.getElementById('descripcionPlan').value,
+            "description" : document.getElementById('descripcion').value,
             "finished": finished,
             "country" : document.getElementById('pais').value,
             "day_start" : fechaIniPlan.getDate()+1,
@@ -211,7 +244,10 @@ if(formHotel!=null){
         }
         await fetch('hotels/' + idViaje, {
             method : 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : token
+            },
             body: JSON.stringify(hotel)
         }).then(response => {
             getViajes();
@@ -222,9 +258,9 @@ if(formHotel!=null){
 
 let formExc = document.querySelector(".agregarPlan");
 if(formExc!=null){
-    formExc.addEventListener('submit', async function() {
-        //e.preventDefault();
-        let idViaje = document.querySelector(".planViajes").value;
+    formExc.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        let idViaje = document.getElementById("planViajes").value;
         let fechaInicioPlan = document.getElementById("fechaInicioPlan").value
         let fechaIniPlan = new Date(fechaInicioPlan)
         let fechaFinPlan = document.getElementById("fechaFinPlan").value
@@ -254,7 +290,10 @@ if(formExc!=null){
         }
         await fetch('excursions/' + idViaje, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : token
+            },
             body: JSON.stringify(excursion)
         }).then(response => {
             getViajes();
@@ -283,6 +322,9 @@ function selectContinents(continent) {
 
 }
 
+
+
+
 let formUserReports = document.getElementById("btnReport");
 if(formUserReports != null) {
     formUserReports.addEventListener("click", getUserReports);
@@ -306,7 +348,13 @@ let conti = document.getElementById("continents");
 
 async function getUserReports() {
     if(selectUserReports.value == "zonaGeografica/") {
-        await fetch('users/' + conti.value + "/" + 56, )
+        await fetch('users/' + conti.value + "/" + 56, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : token
+            }
+        })
             .then(response => response.json())
             .then(resp => {
                 console.log(resp);
@@ -332,19 +380,26 @@ async function getUserReports() {
         console.log(diaI + "/" + mesI + "/" + anoI);
         console.log(diaF + "/" + mesF + "/" + anoF);
         await fetch(selectUserReports.value + 56 + "/" + diaI + "/" + mesI + "/" + anoI + "/" + diaF + "/" + mesF + "/" + anoF, )
-                    .then(response => response.json())
-                    .then(resp => {
-                        console.log(resp);
-                        let divReports = document.getElementById("showReports");
-                        divReports.innerHTML = "";
-                        for (const elem of resp) {
-                            showReports(elem)
-                        }
-                        //getViajes();
-                    })
-                    .catch(error => console.log(error));
+            .then(response => response.json())
+            .then(resp => {
+                console.log(resp);
+                let divReports = document.getElementById("showReports");
+                divReports.innerHTML = "";
+                for (const elem of resp) {
+                    showReports(elem)
+                }
+                //getViajes();
+            })
+            .catch(error => console.log(error));
     }else {
-        await fetch(selectUserReports.value + 56, )
+        await fetch(selectUserReports.value + 56,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : token
+                }
+            }
+        )
             .then(response => response.json())
             .then(resp => {
                 console.log(resp);
@@ -410,40 +465,51 @@ function showReports(plan) {
     }
 }
 
-
-//Reportes compania
-
-//Login
-
-let token = null;
-
 let formLogin = document.getElementById("formLogin");
 if(formLogin != null) {
-    formLogin.addEventListener("submit", login)
+    formLogin.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        let mail = document.getElementById("mailLogin").value;
+        let pass = document.getElementById("passwordLogin").value;
+        console.log(mail)
+        console.log(pass)
+        let data = {
+            "mail" : mail,
+            "password" : pass
+        }
+        console.log(data)
+        try{
+            let f = await fetch('login/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            console.log(f)
+            try{
+                let resp = await f.text()
+                console.log(resp)
+                token = resp
+                console.log(token)
+                getViajes()
+            }catch(error){
+                console.log(error)
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+
+    })
 }
 
-async function login() {
-    let mail = document.getElementById("mailLogin").value;
-    let pass = document.getElementById("passwordLogin").value;
-
-    let data = {
-        "mail" : mail,
-        "password" : pass
-    }
-
-    await fetch('login/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
-            token = response.text();
-            console.log(token);
-            //getViajes();
+async function getIdByMail(mail){
+    await fetch('users/user/'+mail)
+        .then(response => response.json())
+        .then(resp => {
+            console.log(resp)
         })
         .catch(error => console.log(error));
-
-    //Ocultar el login luego de que termine de loguearse
+    return response;
 }
 
 let formRegister = document.getElementById("formRegister");
@@ -451,29 +517,27 @@ if(formRegister != null) {
     formRegister.addEventListener("submit", register)
 }
 
-async function register(e) {
+function register(e) {
     e.preventDefault();
-    let name = document.getElementById("nameRegister").value;
     let mail = document.getElementById("mailRegister").value;
     let pass = document.getElementById("passwordRegister").value;
-
+    console.log(mail)
+    console.log(pass)
     let data = {
-        "name" : name,
         "mail" : mail,
         "password" : pass
     }
-
-    await fetch('login/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+    console.log(data)
+    fetch("/login", {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": JSON.stringify(data),
+    }).then(resp =>{
+        token = resp
     })
-        .then(response => {
-            token = response.text();
-            console.log(token);
-            //getViajes();
-        })
-        .catch(error => console.log(error));
 
-    //Ocultar el login luego de que termine de loguearse
+
 }
+//Ocultar el login luego de que termine de loguearse

@@ -30,10 +30,12 @@ public class PlanControllerJPA {
         this.repository = repository;
     }
 
-    @GetMapping("/")
-    public List<Plan> getPlans() {
+    @GetMapping("/{id}")
+    public List<Plan> getPlans(@PathVariable long id) {
+
         List<Plan> lista = null;
-        lista = repository.findAll();
+        lista = repository.getPlanByTravelId(id);
+        //lista = repository.findAll();
         System.out.println(lista);
         return lista;
     }

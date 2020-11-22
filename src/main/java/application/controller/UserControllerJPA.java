@@ -8,6 +8,7 @@ import java.util.List;
 import application.entity.Plan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +49,11 @@ public class UserControllerJPA {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable long id) {
         repository.deleteById(id);
+    }
+
+    @GetMapping("/{id}")
+    public User getById(@PathVariable Long id){
+        return repository.getUserById(id);
     }
 
     @PutMapping("/{id}")
@@ -138,6 +144,7 @@ public class UserControllerJPA {
 
     // Compañia
     @GetMapping("/masviajes")
+    @PreAuthorize("hasAuthority('ADMIN')")
     List<User> reportUserTravels() {
         List<User> reportUserTravels = new ArrayList<User>();
         reportUserTravels = repository.reportUserTravels();
@@ -145,10 +152,17 @@ public class UserControllerJPA {
     }
 
     @GetMapping("/zonageografica")
+    @PreAuthorize("hasAuthority('ADMIN')")
     List<String> reportUserContinent() {
         List<String> reportUserContinent = new ArrayList<String>();
         reportUserContinent = repository.reportUserContinent();
         return reportUserContinent;
+    }
+
+    @GetMapping("/user/{mail}")
+    User getUserByMail(@PathVariable String mail){
+        User u = repository.getByMail(mail);
+        return u;
     }
 
 }

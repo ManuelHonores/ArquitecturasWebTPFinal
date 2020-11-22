@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -13,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true) //Necesario para que funcione la anotación en el servicio oldman
 public class LoginConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Override
+
     protected void configure(HttpSecurity http) throws Exception {
         //Desactiva el método por defecto
         http.csrf().disable()
@@ -24,6 +25,8 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
 //			a estas URLs puede acceder cualquiera..
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login/").permitAll() //Anda
+                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
+                .permitAll()
                 .antMatchers(HttpMethod.POST, "/login/register").permitAll() //Anda
                 .antMatchers(HttpMethod.GET, "/js/js.js").permitAll()
                 .antMatchers(HttpMethod.GET, "/css/style.css").permitAll()

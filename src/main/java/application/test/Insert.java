@@ -37,16 +37,20 @@ public class Insert {
                                        @Qualifier("travelRepository") TravelRepository repoTravel,
                                        @Qualifier("userRepository") UserRepository repoUser) {
             return args -> {
-                User u1 = new User("Pablo", "admin@mail.com", "elloquito1887");
+                User u1 = new User("Pablo", "admin@mail.com", "123");
+                User u2 = new User("Manu", "elmaspiola@gmail.com", "123");
                 Travel viaje1 = new Travel("boda", "Gualeguaychu", "AmericaSur", 1, 10, 2020, 12, 12, 2020, "viaje medio pelo", u1);
+                Travel viaje2 = new Travel("AAAAAAAAA", "BBBBBBBB", "CCCCCCCCC", 1, 10, 2020, 12, 12, 2020, "viaje medio pelo", u2);
                 Plan plan2 = new Hotel("Paraiso", "A 2 cuadras del centro", "Gualeguaychu", viaje1, 10, 11, 2020, 14, 11, 2020, "Sheraton", true);
-                Plan plan3 = new Excursion("asd", 120, "Excursion1", "Descripcion1", "Normandia", viaje1, 10, 10, 2020, 10, 10, 2020, false);
+                Plan plan3 = new Excursion("asd", 120, "Excursion1", "Descripcion1", "Normandia", viaje2, 10, 10, 2020, 10, 10, 2020, false);
 
                 viaje1.addPlan(plan2);
                 viaje1.addPlan(plan3);
 
                 repoUser.save(u1);
+                repoUser.save(u2);
                 repoTravel.save(viaje1);
+                repoTravel.save(viaje2);
                 repoHotel.save((Hotel) plan2);
                 repoExcursion.save((Excursion) plan3);
             };

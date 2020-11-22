@@ -45,7 +45,7 @@ public class ExcursionControllerJPA {
     }
 
     @PostMapping("/{id}") //{id} de travel
-    public Excursion newExcursion(@RequestBody Excursion e, @PathVariable long id) {
+    public Excursion newExcursion(@RequestBody Excursion e, @PathVariable Long id) {
         System.out.println("Excursion: " + e);
         System.out.println("Travel id: " + id);
         Travel t1 = repoTravel.getId(id);
@@ -59,7 +59,7 @@ public class ExcursionControllerJPA {
     }*/
 
     @DeleteMapping("/{id}")
-    public void deleteExcursion(@PathVariable long id) {
+    public void deleteExcursion(@PathVariable Long id) {
         repository.deleteById(id);
     }
 

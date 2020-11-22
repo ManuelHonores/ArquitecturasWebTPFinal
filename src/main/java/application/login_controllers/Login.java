@@ -38,11 +38,13 @@ public class Login {
         User t = repository.getByMail(mail);
 
         if(t == null || !t.getPassword().equals(pwd)){
+            System.out.println("es nulo");
             return null;
         }
 
         String token = getJWTToken(t.getId(), mail.equals("admin@mail.com")); //Prueba: si el usuario se llama "admin@mail.com", envia true para tener permisos de administrador
         System.out.println(t + " resultado");
+        System.out.println("token: " + token);
         return token;
     }
 
@@ -80,7 +82,7 @@ public class Login {
                                 .map(GrantedAuthority::getAuthority)
                                 .collect(Collectors.toList()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 60000))
+                .setExpiration(new Date(System.currentTimeMillis() + 6000000))
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes()).compact();
 

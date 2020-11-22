@@ -2,10 +2,14 @@ package application.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import application.entity.Plan;
+import application.entity.User;
+import application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,20 +30,33 @@ public class TravelControllerJPA {
     @Autowired
     private final TravelRepository repository;
 
-    public TravelControllerJPA(@Qualifier("travelRepository") TravelRepository repository) {
+    @Qualifier("userRepository")
+    @Autowired
+    private final UserRepository userRepository;
+
+    public TravelControllerJPA(@Qualifier("travelRepository") TravelRepository repository,  @Qualifier("userRepository") UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/")
     public List<Travel> getTravels() {
-        List<Travel> lista = new ArrayList<Travel>();
-        lista = repository.findAll();
+        Long id = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName());
+        System.out.println("este es el id: " + id);
+        List<Travel> lista = new ArrayList<>();
+        lista = repository.getTravelUserId(id);
+        //lista = repository.findAll();
         System.out.println(lista);
         return lista;
     }
 
     @PostMapping("/")
     public Travel newTravel(@RequestBody Travel p) {
+        Long id = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName());
+        System.out.println("ID EN POST TRAVEL: " + id);
+        User u = userRepository.getUserById(id);
+        System.out.println("USER: " + u);
+        p.setUser(u);
         return repository.save(p);
     }
 

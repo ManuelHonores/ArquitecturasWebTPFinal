@@ -44,4 +44,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT t.continent FROM Travel t GROUP BY t.continent ORDER BY count(t.continent) ASC")
     public List<String> reportUserContinent();
 
+    @Query("SELECT u FROM User u WHERE u.id =:id")
+    public User getUserById(Long id);
 }
