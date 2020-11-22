@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import application.entity.Hotel;
 import application.repository.HotelRepository;
 
+/**
+ * Rest Controller para la entidad Hotel
+ * @author Grupo 10
+ * @version v1.0
+ */
 
 @RestController
 @RequestMapping("hotels")
@@ -45,6 +50,12 @@ public class HotelControllerJPA {
         return lista;
     }
 
+    /**
+     * Se va a persistir un plan Hotel, previamente asociado a su correspondiente Travel
+     * @param h recibe una instancia de Hotel
+     * @param id recibe un id correspondiente al Travel que se va a asociar
+     * @return se retorna un Hotel
+     */
     @PostMapping("/{id}") //{id} de travel
     public Hotel newHotel(@RequestBody Hotel h, @PathVariable long id) {
         Travel t1 = repoTravel.getId(id);
@@ -52,28 +63,8 @@ public class HotelControllerJPA {
         return repository.save(h);
     }
 
-    /*@PostMapping("/")
-    public Hotel newHotel(@RequestBody Hotel h) {
-        return repository.save(h);
-    }*/
-
     @DeleteMapping("/{id}")
     public void deleteHotel(@PathVariable long id) {
         repository.deleteById(id);
     }
-
-    /*@PutMapping("/{id}")
-    Hotel replaceHotel(@RequestBody Hotel newHotel, @PathVariable Long id) {
-
-        return repository.findById(id).map(hotel -> {
-            hotel.setId(id);
-            hotel.setName(newHotel.getName());
-            hotel.setStart_date(newHotel.getStart_date());
-            hotel.setEnd_date(newHotel.getEnd_date());
-            return repository.save(hotel);
-        }).orElseGet(() -> {
-            newHotel.setId(id);
-            return repository.save(newHotel);
-        });
-    }*/
 }

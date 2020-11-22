@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import application.entity.Excursion;
 import application.repository.ExcursionRepository;
 
+/**
+ * Rest Controller para la entidad Excursion
+ * @author Grupo 10
+ * @version v1.0
+ */
+
 @RestController
 @RequestMapping("excursions")
 public class ExcursionControllerJPA {
@@ -44,6 +50,12 @@ public class ExcursionControllerJPA {
         return lista;
     }
 
+    /**
+     * Se persiste una Excursion que previamente se asicia a un viaje correspondiente
+     * @param e Recibe una Excursion
+     * @param id Recibe id de un Travel al que se le va a asociar la Excursion
+     * @return Excursion
+     */
     @PostMapping("/{id}") //{id} de travel
     public Excursion newExcursion(@RequestBody Excursion e, @PathVariable Long id) {
         System.out.println("Excursion: " + e);
@@ -53,27 +65,9 @@ public class ExcursionControllerJPA {
         return repository.save(e);
     }
 
-    /*@PostMapping("/")
-    public Excursion newExcursion(@RequestBody Excursion e) {
-        return repository.save(e);
-    }*/
-
     @DeleteMapping("/{id}")
     public void deleteExcursion(@PathVariable Long id) {
         repository.deleteById(id);
     }
 
-    /*@PutMapping("/{id}")
-    Excursion replaceExcursion(@RequestBody Excursion newExcursion, @PathVariable Long id) {
-
-        return repository.findById(id).map(excursion -> {
-            excursion.setId(id);
-            excursion.setPlace(newExcursion.getPlace());
-            excursion.setDuration(newExcursion.getDuration());
-            return repository.save(excursion);
-        }).orElseGet(() -> {
-            newExcursion.setId(id);
-            return repository.save(newExcursion);
-        });
-    }*/
 }

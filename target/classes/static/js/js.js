@@ -501,10 +501,10 @@ function showReportCompany(data) {
     if(data[0].hasOwnProperty("mail")) {
         divReports.innerHTML += "Usuario" + "<br>"
         for(let i=0; i<data.length; i++) {
-             divReports.innerHTML +=
+            divReports.innerHTML +=
                 "<ul>" + "<li>" + "ID de Usuario: " + data[i].id + "</li>" +
-                         "<li>" + "Nombre: " + data[i].name + "</li>" +
-                         "<li>" + "Mail: " + data[i].mail + "</li>" +
+                "<li>" + "Nombre: " + data[i].name + "</li>" +
+                "<li>" + "Mail: " + data[i].mail + "</li>" +
                 "</ul>"
         }
     } else {
@@ -639,3 +639,40 @@ async function loginAfterRegister(user) {
 
 }
 //Ocultar el login luego de que termine de loguearse
+
+//Lectura de archivo de texto
+
+document.getElementById('archivoDeTextoViaje')
+    .addEventListener('change', function() {
+        let name = document.getElementById("nombreViaje")
+        let destiny_city = document.getElementById("ciudadDestino")
+        let destiny_continent = document.getElementById("continenteDestino")
+        let dayS = document.getElementById("diaInicio")
+        let monthS = document.getElementById("mesInicio")
+        let yearS = document.getElementById("anioInicio")
+        let dayE = document.getElementById("diaFin")
+        let monthE = document.getElementById("mesFin")
+        let yearE = document.getElementById("anioFin")
+        let description = document.getElementById("descripcionViaje")
+
+        let json;
+        let fr = new FileReader();
+        fr.onload = function(){
+            json = JSON.parse(fr.result);
+            name.value = json.name;
+            destiny_city.value = json.destinity_city;
+            destiny_continent.value = json.continent;
+            dayS.value = json.day_start_date;
+            monthS.value = json.month_start_date;
+            yearS.value = json.year_start_date;
+            dayE.value = json.day_end_date;
+            monthE.value = json.month_end_date;
+            yearE.value = json.year_end_date;
+            description.value = json.description;
+
+            console.log(name);
+            console.log(json.name);
+            console.log(json);
+        }
+        fr.readAsText(this.files[0]);
+    })

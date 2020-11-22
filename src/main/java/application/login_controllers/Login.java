@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/**
+ * Rest Controller de Login
+ * @author Grupo 10
+ * @version v1.0
+ */
 
 @RestController
 @RequestMapping("login")
@@ -29,6 +34,12 @@ public class Login {
     }
 
     //Servicio de login
+
+    /**
+     * Metodo para asociarle un token a un usuario que se loguea en la web.
+     * @param auxT recibe un User
+     * @return se retorna un String que será el token asociado al usuario logueado
+     */
     @PostMapping("/")
     public String login(@RequestBody User auxT){
 
@@ -48,18 +59,11 @@ public class Login {
         return token;
     }
 
-    /*@PostMapping("/register")
-    public String register(@RequestBody User newT) {
-        String mail = newT.getMail();
-        User t = repository.getByMail(mail);
-        if(t != null){
-            return null;
-        }
-        User t2 = repository.save(newT);
-        String token = getJWTToken(t2.getId(), false);
-
-        return token;
-    }*/
+    /**
+     * El metodo va a persistir al nuevo User en la base de datos
+     * @param newUser recibe un nuevo User que no está registrado en la base de datos
+     * @return se retorna dicho usuario
+     */
 
     @PostMapping("/register")
     public User register(@RequestBody User newUser) {

@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import application.entity.Travel;
 import application.repository.TravelRepository;
 
+/**
+ * Rest Controller para la entidad Travel
+ * @author Grupo 10
+ * @version v1.0
+ */
+
 @RestController
 @RequestMapping("travels")
 public class TravelControllerJPA {
@@ -39,16 +45,26 @@ public class TravelControllerJPA {
         this.userRepository = userRepository;
     }
 
+    /**
+     * En éste método, se consigue el id del usuario logueado y luego se consulta los Travels correpondientes al mismo.
+     * @return se retorna una lista de Travels, correspondientes a un usuario
+     */
     @GetMapping("/")
     public List<Travel> getTravels() {
         Long id = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName());
         System.out.println("este es el id: " + id);
         List<Travel> lista = new ArrayList<>();
         lista = repository.getTravelUserId(id);
-        //lista = repository.findAll();
         System.out.println(lista);
         return lista;
     }
+
+    /**
+     * Se consigue el id del usuario logueado para obtener dicho usuario y luego
+     * se le asocia dicho usuario al Travel antes de persistirlo para generar la relación entre las clases.
+     * @param p se recibe un Travel
+     * @return se retorna el mismo Travel que se persiste
+     */
 
     @PostMapping("/")
     public Travel newTravel(@RequestBody Travel p) {
@@ -64,29 +80,4 @@ public class TravelControllerJPA {
     public void deleteTravel(@PathVariable long id) {
         repository.deleteById(id);
     }
-
-    /* @PutMapping("/{id}")
-    Travel replaceTravel(@RequestBody Travel newTravel, @PathVariable Long id) {
-
-        return repository.findById(id).map(travel -> {
-            travel.setId(id);
-            travel.setName(newTravel.getName());
-            travel.setDestinity_city(newTravel.getDestinity_city());
-            travel.setStart_date(newTravel.getStart_date());
-            travel.setEnd_date(newTravel.getEnd_date());
-            travel.setDescription(newTravel.getDescription());
-            return repository.save(travel);
-        }).orElseGet(() -> {
-            newTravel.setId(id);
-            return repository.save(newTravel);
-        });
-    } */
-
-   /* @GetMapping("/{id}")
-    public List<Plan> getPlansForTravel(@PathVariable long id) {
-        List<Plan> lista = new ArrayList<Plan>();
-        lista = repository.findPlansForTravel();
-        System.out.println(lista);
-        return lista;
-    } */
 }

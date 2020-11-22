@@ -4,6 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * Entidad Hotel, va a heredar de la clase Plan.
+ * @author Grupo 10
+ * @version v1.0
+ */
+
 @Entity
 @Table(name= "hotels")
 public class Hotel extends Plan{

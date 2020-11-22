@@ -1,0 +1,12 @@
+{
+"name": "TravelText",
+"destinity_city": "TravelDestinyText",
+"continent": "ContinentText",
+"day_start_date": 25,
+"month_start_date": 11,
+"year_start_date": 2020,
+"day_end_date": 15,
+"month_end_date": 12,
+"year_end_date": 2020,
+"description": "DescriptionText"
+}

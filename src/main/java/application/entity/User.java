@@ -4,6 +4,14 @@ import java.util.List;
 
 import javax.persistence.*;
 
+/**
+ * Entidad User
+ * Contiene las variables de los usuarios que se registren en la web
+ * Tiene una relación con la clase Travel.
+ * @author Grupo 10
+ * @version v1.0
+ */
+
 @Entity
 @Table(name = "users")
 public class User {

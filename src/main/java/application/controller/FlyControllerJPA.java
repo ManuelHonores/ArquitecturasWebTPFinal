@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import application.entity.Fly;
 import application.repository.FlyRepository;
 
+/**
+ * Rest Controller para la entidad Fly
+ * @author Grupo 10
+ * @version v1.0
+ */
+
 @RestController
 @RequestMapping("flies")
 public class FlyControllerJPA {
@@ -44,42 +50,21 @@ public class FlyControllerJPA {
         return lista;
     }
 
-    /*@PostMapping("/")
-    public Fly newFly(@RequestBody Fly f) {
-        return repository.save(f);
-    }*/
-
     @DeleteMapping("/{id}")
     public void deleteFly(@PathVariable long id) {
         repository.deleteById(id);
     }
 
+    /**
+     * Se va a persistir un plan Fly, previamente asociado a su correspondiente Travel
+     * @param f recibe una instacia de Fly
+     * @param id recibe un id perteneciente a un Travel
+     * @return un objeto Fly
+     */
     @PostMapping("/{id}") //{id} de travel
     public Fly newFly(@RequestBody Fly f, @PathVariable long id) {
         Travel t1 = repoTravel.getId(id);
         f.setTravel(t1);
         return repository.save(f);
     }
-
-    /*@PutMapping("/{id}")
-    Fly replaceFly(@RequestBody Fly newFly, @PathVariable Long id) {
-
-        return repository.findById(id).map(fly -> {
-            fly.setId(id);
-            fly.setCompany(newFly.getCompany());
-            fly.setDeparture_date(newFly.getDeparture_date());
-            fly.setDeparture_hour(newFly.getDeparture_hour());
-            fly.setDeparture_airport(newFly.getDeparture_airport());
-            fly.setReturn_date(newFly.getReturn_date());
-            fly.setReturn_hour(newFly.getReturn_hour());
-            fly.setReturn_airport(newFly.getReturn_airport());
-            fly.setReserve_code(newFly.getReserve_code());
-            fly.setInfo_airplane(newFly.getInfo_airplane());
-            fly.setScale_time(newFly.getScale_time());
-            return repository.save(fly);
-        }).orElseGet(() -> {
-            newFly.setId(id);
-            return repository.save(newFly);
-        });
-    }*/
 }

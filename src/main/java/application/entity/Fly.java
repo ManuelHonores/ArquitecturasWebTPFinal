@@ -9,6 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entidad Fly, va a heredar de la clase Plan.
+ * @author Grupo 10
+ * @version v1.0
+ */
+
 @Entity
 @Table(name= "flies")
 public class Fly extends Plan{

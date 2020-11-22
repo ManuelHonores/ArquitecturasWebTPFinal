@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import application.entity.Plan;
 import application.repository.PlanRepository;
 
+/**
+ * Rest Controller para la entidad Plan
+ * @author Grupo 10
+ * @version v1.0
+ */
 
 @RestController
 @RequestMapping("plans")
@@ -30,12 +35,17 @@ public class PlanControllerJPA {
         this.repository = repository;
     }
 
+    /**
+     * Se recibe el id de un Travel, luego se obtienen todos los planes correspondientes
+     * a ese mismo Travel y se los retorna.
+     * @param id recibe un id correspondiente a un Travel
+     * @return una Lista de planes, que corresponden al Travel recibido
+     */
     @GetMapping("/{id}")
     public List<Plan> getPlans(@PathVariable long id) {
 
         List<Plan> lista = null;
         lista = repository.getPlanByTravelId(id);
-        //lista = repository.findAll();
         System.out.println(lista);
         return lista;
     }

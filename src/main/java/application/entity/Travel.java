@@ -6,6 +6,14 @@ import java.util.List;
 
 import javax.persistence.*;
 
+/**
+ * Entidad Travel
+ * Tiene una relación con la clase User
+ * @author Grupo 10
+ * @version v1.0
+ */
+
+
 @Entity
 @Table(name = "travels")
 public class Travel {

@@ -10,6 +10,14 @@ import javax.persistence.Table;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
+/**
+ * Entidad Plan
+ * Clase padre de los tipos de planes (Excursion, Fly, Hotel)
+ * Tiene una relación con la clase Travel
+ * @author Grupo 10
+ * @version v1.0
+ */
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "plans")

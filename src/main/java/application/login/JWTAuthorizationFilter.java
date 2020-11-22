@@ -51,16 +51,6 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         }
     }
 
-
-    /*private Claims validateToken(HttpServletRequest request) {
-        String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-        System.out.println("JWT: " + jwtToken);
-        JwtParser parser = Jwts.parser().setSigningKey(SECRET.getBytes());
-        System.out.println("Parser: " + parser);
-        System.err.println("Login " +parser.parse(jwtToken));
-        return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
-    }*/
-
     private Claims validateToken(HttpServletRequest request) {
         String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
         JwtParser parser = Jwts.parser().setSigningKey(SECRET.getBytes());
