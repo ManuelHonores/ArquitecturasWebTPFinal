@@ -8,36 +8,37 @@
 </head>
 <body>
 
-    <header>
-        <h1>Agencia de viajes</h1>
-    </header>
+<header>
+    <h1>Agencia de viajes</h1>
+</header>
 
-    <!-- Login -->
+<!-- Login -->
 
-    <section>
-        <h3>Iniciar Sesion</h3>
-        <form id="formLogin">
-            <label for="mailLogin">Mail:</label>
-            <input id="mailLogin" type="email" placeholder="abc@mail.com" required>
-            <label for="passwordLogin">Contraseña:</label>
-            <input id="passwordLogin" type="password" placeholder="password" required>
-            <input type="submit" value="Iniciar sesión">
-        </form>
-        <h3>Registrarse</h3>
-        <form id="formRegister">
-            <label for="nameRegister">Nombre:</label>
-            <input id="nameRegister" type="text" placeholder="abc" required>
-            <label for="mailRegister">Mail:</label>
-            <input id="mailRegister" type="email" placeholder="abc@mail.com" required>
-            <label for="passwordRegister">Contraseña:</label>
-            <input id="passwordRegister" type="password" placeholder="Contraseña" required>
-            <input type="submit" value="Registrarse">
-        </form>
+<section class="contenedorLogin">
+    <h3>Iniciar Sesion</h3>
+    <form id="formLogin">
+        <label for="mailLogin">Mail:</label>
+        <input id="mailLogin" type="email" placeholder="abc@mail.com" required>
+        <label for="passwordLogin">Contraseña:</label>
+        <input id="passwordLogin" type="password" placeholder="password" required>
+        <input type="submit" value="Iniciar sesión">
+    </form>
+    <h3>Registrarse</h3>
+    <form id="formRegister">
+        <label for="nameRegister">Nombre:</label>
+        <input id="nameRegister" type="text" placeholder="abc" required>
+        <label for="mailRegister">Mail:</label>
+        <input id="mailRegister" type="email" placeholder="abc@mail.com" required>
+        <label for="passwordRegister">Contraseña:</label>
+        <input id="passwordRegister" type="password" placeholder="Contraseña" required>
+        <input type="submit" value="Registrarse">
+    </form>
 
-    </section>
+</section>
 
-    <!-- Fin Login -->
+<!-- Fin Login -->
 
+<div class="divContenedorWeb">
 
     <h2>Mis viajes</h2>
     <button id="btn-viajes">Mostrar viajes</button>
@@ -46,18 +47,18 @@
             <h3>Viajes futuros</h3>
             <table id="viajesFuturos">
                 <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Ciudad</th>
-                        <th>Continente</th>
-                        <th>Dia inic.</th>
-                        <th>Mes inic.</th>
-                        <th>Año inic.</th>
-                        <th>Dia fin</th>
-                        <th>Mes fin</th>
-                        <th>Año fin</th>
-                        <th>Descrip.</th>
-                    </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Ciudad</th>
+                    <th>Continente</th>
+                    <th>Dia inic.</th>
+                    <th>Mes inic.</th>
+                    <th>Año inic.</th>
+                    <th>Dia fin</th>
+                    <th>Mes fin</th>
+                    <th>Año fin</th>
+                    <th>Descrip.</th>
+                </tr>
                 </thead>
                 <tbody id="tablaViajesFuturos">
                 </tbody>
@@ -68,18 +69,18 @@
             <table id="viajesRealizados">
                 <h3>Viajes realizados</h3>
                 <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Ciudad</th>
-                        <th>Continente</th>
-                        <th>Dia inic.</th>
-                        <th>Mes inic.</th>
-                        <th>Año inic.</th>
-                        <th>Dia fin</th>
-                        <th>Mes fin</th>
-                        <th>Año fin</th>
-                        <th>Descrip.</th>
-                    </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Ciudad</th>
+                    <th>Continente</th>
+                    <th>Dia inic.</th>
+                    <th>Mes inic.</th>
+                    <th>Año inic.</th>
+                    <th>Dia fin</th>
+                    <th>Mes fin</th>
+                    <th>Año fin</th>
+                    <th>Descrip.</th>
+                </tr>
                 </thead>
                 <tbody id="tablaViajesRealizados">
                 </tbody>
@@ -100,13 +101,13 @@
             <form id="agregarViaje" action="">
                 <label for="nombreViaje">Nombre de viaje:</label>
                 <input type="text" id="nombreViaje" name="nombreViaje" required><br><br>
-            
+
                 <label for="ciudadDestino">Ciudad de destino:</label>
                 <input type="text" id="ciudadDestino" name="ciudadDestino" required><br><br>
-        
+
                 <label for="continenteDestino">Continente de destino:</label>
                 <input type="text" id="continenteDestino" name="continenteDestino" required><br><br>
-            
+
                 <label for="diaInicio">Dia de inicio:</label>
                 <input type="number" id="diaInicio" name="diaInicio" required><br><br>
 
@@ -124,7 +125,7 @@
 
                 <label for="anioFin">Año fin:</label>
                 <input type="number" id="anioFin" name="anioFin" required><br><br>
-        
+
                 <label for="descripcionViaje">Descripción:</label>
                 <input type="text" id="descripcionViaje" name="descripcionViaje" required><br><br>
                 <input type="submit" value="Enviar">
@@ -163,12 +164,12 @@
                 <option value="vueloFormulario">Agregar por formulario</option>
                 <!-- Acá tendría un select para elegir el viaje asociado al vuelo.
                     Acá también iría el formulario para que el usuario llene el vuelo. -->
-                <option value="vueloAutomatico">Agregar automáticamente</option>  
+                <option value="vueloAutomatico">Agregar automáticamente</option>
             </select>
 
             <label for="nroVuelo">Número de vuelo:</label>
             <input type="number" id="nroVuelo" name="nroVuelo" required><br><br>
-        
+
             <label for="fechaVueloInicio">Fecha inicio:</label>
             <input type="date" id="fechaVueloInicio" name="fechaVuelo" required><br><br>
 
@@ -208,9 +209,9 @@
                 <option value="reservaFormulario">Agregar por formulario</option>
                 <!-- Acá tendría un select para elegir el viaje asociado al vuelo.
                 Acá también iría el formulario para que el usuario llene el vuelo. -->
-                <option value="cargarArchivo">Cargar archivo</option> <!--Ubicar la reserva según viaje--> 
+                <option value="cargarArchivo">Cargar archivo</option> <!--Ubicar la reserva según viaje-->
             </select>
-    
+
             <label for="hotel">Hotel:</label>
             <input type="text" id="hotel" name="hotel" required><br><br>
 
@@ -259,23 +260,26 @@
             <h3>Reporte de Compañia</h3>
             <select name="select" id="selectCompanyReports">
                 <option value="masViajes">Usuarios con más viajes</option>
-                <option value="zonaGeografica">Zona geográfica</option>     
+                <option value="zonaGeografica">Zona geográfica</option>
             </select>
+            <input type="button" value="Generar reporte Compania" id="btnReportCompany">
         </div>
     </section>
 
     <input type="button" value="Generar reporte" id="btnReport">
-    <input type="button" value="Generar reporte Compania" id="btnReportCompany">
 
     <div id="showReports">
 
     </div>
 
-    <footer>
-        <p>Arquitecturas Web</p>
-    </footer>
 
-    <script src="js/js.js"></script>
+</div> <br><br>
+
+<footer>
+    <p>Arquitecturas Web</p>
+</footer>
+
+<script src="js/js.js"></script>
 
 </body>
 </html>

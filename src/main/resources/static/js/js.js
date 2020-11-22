@@ -517,6 +517,12 @@ function showReportCompany(data) {
 
 //LOGIN
 
+let contenedorWeb = document.querySelector(".divContenedorWeb");
+let contenedorLogin = document.querySelector(".contenedorLogin");
+let divAdmin = document.querySelector(".generarReporteCompania");
+
+let mailUser;
+
 let formLogin = document.getElementById("formLogin");
 if(formLogin != null) {
     formLogin.addEventListener("submit", async function(e) {
@@ -541,7 +547,14 @@ if(formLogin != null) {
                 let resp = await f.text()
                 console.log(resp)
                 token = resp
-                console.log(token)
+                console.log(token);
+                mailUser = mail;
+                if(mailUser == "admin@mail.com") {
+                    divAdmin.style.display = "flex"
+                }
+                console.log(mailUser);
+                contenedorWeb.style.display = "flex";
+                contenedorLogin.style.display = "none";
                 getViajes()
             }catch(error){
                 console.log(error)
