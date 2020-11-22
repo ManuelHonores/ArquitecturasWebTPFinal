@@ -48,7 +48,7 @@ public class Login {
         return token;
     }
 
-    @PostMapping("/register")
+    /*@PostMapping("/register")
     public String register(@RequestBody User newT) {
         String mail = newT.getMail();
         User t = repository.getByMail(mail);
@@ -57,7 +57,20 @@ public class Login {
         }
         User t2 = repository.save(newT);
         String token = getJWTToken(t2.getId(), false);
+
         return token;
+    }*/
+
+    @PostMapping("/register")
+    public User register(@RequestBody User newUser) {
+        String mail = newUser.getMail();
+        User t = repository.getByMail(mail);
+        if (t != null) {
+            System.out.println("El usuario ya existe");
+            return null;
+        } else {
+            return repository.save(newUser);
+        }
     }
 
     //Genero el token.

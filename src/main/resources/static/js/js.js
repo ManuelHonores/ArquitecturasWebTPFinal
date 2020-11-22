@@ -57,9 +57,9 @@ function getViajes() {
             if(resp!=null){
                 for (const elem of resp) {
                     agregarViajesEnTablas(elem.name, elem.destinity_city, elem.continent, elem.day_start_date, elem.month_start_date, elem.year_start_date, elem.day_end_date, elem.month_end_date, elem.year_end_date, elem.description);
-                    selectContinents(elem.continent)
                     getPlanes(elem.id);
                 }
+                selectContinents(resp);
 
             }
 
@@ -307,23 +307,15 @@ if(formExc!=null){
 let selectUserReports = document.getElementById('selectUserReports')
 
 
-function selectContinents(continent) {
+function selectContinents(viajes) {
     let select = document.getElementById("continents");
     select.innerHTML = "";
 
-    let array = [];
-    if(!array.includes(continent)) {
-        array.push(continent)
-    }
-
-    for(let i=0; i<array.length; i++) {
-        select.innerHTML += "<option value=" + array[i] + ">" + array[i] + "</option>"
+    for(let j=0; j<viajes.length; j++) {
+        select.innerHTML += "<option value=" + viajes[j].continent + ">" + viajes[j].continent + "</option>"
     }
 
 }
-
-
-
 
 let formUserReports = document.getElementById("btnReport");
 if(formUserReports != null) {
@@ -331,24 +323,11 @@ if(formUserReports != null) {
 }
 
 let conti = document.getElementById("continents");
-/*conti.addEventListener("change", async function(){
+
+async function getUserReports(e) {
+    e.preventDefault();
     if(selectUserReports.value == "zonaGeografica/") {
-        console.log("entroEnesteSelect")
-        await fetch('users/' + conti.value + "/" + 28)
-            .then(response => response.json())
-            .then(resp => {
-                console.log(resp);
-                //getViajes();
-            })
-            .catch(error => console.log(error));
-    }
-})*/
-
-
-
-async function getUserReports() {
-    if(selectUserReports.value == "zonaGeografica/") {
-        await fetch('users/' + conti.value + "/" + 56, {
+        await fetch('users/report/' + conti.value ,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -379,7 +358,13 @@ async function getUserReports() {
         let anoF = dateF.getFullYear()
         console.log(diaI + "/" + mesI + "/" + anoI);
         console.log(diaF + "/" + mesF + "/" + anoF);
-        await fetch(selectUserReports.value + 56 + "/" + diaI + "/" + mesI + "/" + anoI + "/" + diaF + "/" + mesF + "/" + anoF, )
+        await fetch(selectUserReports.value + diaI + "/" + mesI + "/" + anoI + "/" + diaF + "/" + mesF + "/" + anoF, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : token
+            }
+        })
             .then(response => response.json())
             .then(resp => {
                 console.log(resp);
@@ -392,7 +377,7 @@ async function getUserReports() {
             })
             .catch(error => console.log(error));
     }else {
-        await fetch(selectUserReports.value + 56,{
+        await fetch(selectUserReports.value,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -465,6 +450,73 @@ function showReports(plan) {
     }
 }
 
+//Reportes Compañia
+
+let selectReportCompany = document.getElementById("selectCompanyReports");
+
+let btnReportCompany = document.getElementById("btnReportCompany");
+btnReportCompany.addEventListener("click", showReportsCompany);
+
+async function showReportsCompany() {
+    if(selectReportCompany.value == "masViajes") {
+        await fetch("users/masviajes" , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : token
+                }
+            }
+        )
+            .then(response => response.json())
+            .then(resp => {
+                console.log(resp);
+                let divReports = document.getElementById("showReports");
+                divReports.innerHTML = "";
+                showReportCompany(resp);
+            })
+            .catch(error => console.log(error));
+    } else {
+        await fetch("users/zonageografica" , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : token
+                }
+            }
+        )
+            .then(response => response.json())
+            .then(resp => {
+                console.log(resp);
+                let divReports = document.getElementById("showReports");
+                divReports.innerHTML = "";
+                showReportCompany(resp);
+            })
+            .catch(error => console.log(error));
+    }
+}
+
+function showReportCompany(data) {
+    let divReports = document.getElementById("showReports");
+
+    if(data[0].hasOwnProperty("mail")) {
+        divReports.innerHTML += "Usuario" + "<br>"
+        for(let i=0; i<data.length; i++) {
+             divReports.innerHTML +=
+                "<ul>" + "<li>" + "ID de Usuario: " + data[i].id + "</li>" +
+                         "<li>" + "Nombre: " + data[i].name + "</li>" +
+                         "<li>" + "Mail: " + data[i].mail + "</li>" +
+                "</ul>"
+        }
+    } else {
+        divReports.innerHTML += "Continentes mas visitados: " + "<br>"
+        for(let j=0; j<data.length; j++) {
+            divReports.innerHTML += "<ul>" + "<li>" + "Nombre: " + data[j] + "</li>" + "</ul>"
+        }
+    }
+}
+
+//LOGIN
+
 let formLogin = document.getElementById("formLogin");
 if(formLogin != null) {
     formLogin.addEventListener("submit", async function(e) {
@@ -512,32 +564,78 @@ async function getIdByMail(mail){
     return response;
 }
 
+//Registro
+
 let formRegister = document.getElementById("formRegister");
 if(formRegister != null) {
     formRegister.addEventListener("submit", register)
 }
 
-function register(e) {
+async function register(e) {
     e.preventDefault();
+    let name = document.getElementById("nameRegister").value;
     let mail = document.getElementById("mailRegister").value;
     let pass = document.getElementById("passwordRegister").value;
+
+    console.log(name)
     console.log(mail)
     console.log(pass)
-    let data = {
+
+    let newUser = {
+        "name" : name,
         "mail" : mail,
         "password" : pass
     }
-    console.log(data)
-    fetch("/login", {
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "body": JSON.stringify(data),
-    }).then(resp =>{
-        token = resp
-    })
+    console.log(newUser)
 
+    try {
+        let f = await fetch("/login/register", {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": JSON.stringify(newUser)
+        })
+        try {
+            let resp = await f.json();
+            console.log(resp);
+            console.log("Usuario despues de registro: " + resp);
+            loginAfterRegister(resp);
+        } catch (error) {
+            console.log(error);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+async function loginAfterRegister(user) {
+    let data = {
+        "mail" : user.mail,
+        "password" : user.password
+    }
+
+    try{
+        let f = await fetch('login/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        console.log(f)
+        try{
+            let resp = await f.text()
+            console.log(resp)
+            token = resp
+            console.log(token)
+            getViajes()
+        }catch(error){
+            console.log(error)
+        }
+
+    }catch(error){
+        console.log(error)
+    }
 
 }
 //Ocultar el login luego de que termine de loguearse

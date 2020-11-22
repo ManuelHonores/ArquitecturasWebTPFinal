@@ -9,6 +9,7 @@ import application.entity.Plan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,15 +72,17 @@ public class UserControllerJPA {
         });
     }
 
-    @GetMapping("/finished/{id}")
-    List<Plan> reportPlansFinished(@PathVariable long id) {
+    @GetMapping("/finished")
+    List<Plan> reportPlansFinished() {
+        Long id = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Plan> listFinished = null;
         listFinished = repository.reportPlansFinished(id);
         return listFinished;
     }
 
-    @GetMapping("/nofinished/{id}")
-    List<Plan> reportPlansNoFinished(@PathVariable long id) {
+    @GetMapping("/nofinished")
+    List<Plan> reportPlansNoFinished() {
+        Long id = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Plan> listNoFinished = null;
         listNoFinished = repository.reportPlansNoFinished(id);
         return listNoFinished;
@@ -92,18 +95,9 @@ public class UserControllerJPA {
         return plansUser;
     }
 
-    /*@GetMapping("/reportDays/{id}/{dayS}/{monthS}/{yearS}/{dayE}/{monthE}/{yearE}") //Esto es horrible, preguntar
-    List<Plan> reportDates(@PathVariable long id, @PathVariable int dayS, @PathVariable int monthS, @PathVariable int yearS, @PathVariable int dayE, @PathVariable int monthE, @PathVariable int yearE) {
-        List<Plan> reportDates = null;
-        System.out.println("Id:" + id + " DiaInicio: " + dayS + " MesI: " + monthS + " AnoI:" + yearS);
-        System.out.println("Id:" + id + " DiaInicio: " + dayE + " MesI: " + monthE + " AnoI:" + yearE);
-        reportDates = repository.reportDates(id, dayS, monthS, yearS, dayE, monthE, yearE);
-        System.out.println(reportDates);
-        return reportDates;
-    }*/
-
-    @GetMapping("/reportDays/{id}/{dayS}/{monthS}/{yearS}/{dayE}/{monthE}/{yearE}") //Esto es horrible, preguntar
-    List<Plan> reportDates(@PathVariable long id, @PathVariable int dayS, @PathVariable int monthS, @PathVariable int yearS, @PathVariable int dayE, @PathVariable int monthE, @PathVariable int yearE) {
+    @GetMapping("/reportDays/{dayS}/{monthS}/{yearS}/{dayE}/{monthE}/{yearE}") //Esto es horrible, preguntar
+    List<Plan> reportDates(@PathVariable int dayS, @PathVariable int monthS, @PathVariable int yearS, @PathVariable int dayE, @PathVariable int monthE, @PathVariable int yearE) {
+        Long id = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Plan> allPlans = repository.reportPlans(id);
         List<Plan> reportDates = new ArrayList<Plan>();
         Calendar fechaI = Calendar.getInstance();
@@ -135,9 +129,18 @@ public class UserControllerJPA {
         return reportDates;
     }*/
 
-    @GetMapping("/{continent}/{id}")
+    /*@GetMapping("/{continent}/{id}")
     List<Plan> reportZone(@PathVariable String continent, @PathVariable long id) {
+
         List<Plan> reportZone = new ArrayList<Plan>();
+        reportZone = repository.reportZone(continent, id);
+        return reportZone;
+    }*/
+
+    @GetMapping("/report/{continent}")
+    List<Plan> reportZone(@PathVariable String continent) {
+        Long id = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Plan> reportZone = null;
         reportZone = repository.reportZone(continent, id);
         return reportZone;
     }
