@@ -72,4 +72,10 @@ public class User {
 		this.id = id;
 	}
 
+	/* ----------------------------------------------------------------------------------------- */
+
+	public void addTravels(List<Travel> list) {
+		this.travels = list;
+	}
+
 }

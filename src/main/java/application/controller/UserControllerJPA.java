@@ -1,14 +1,20 @@
 package application.controller;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import application.entity.Plan;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import application.entity.User;
 import application.repository.UserRepository;
+
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Rest Controller para la entidad User

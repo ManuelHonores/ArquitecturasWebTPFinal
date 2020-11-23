@@ -542,20 +542,21 @@ if(formLogin != null) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            console.log(f)
             try{
                 let resp = await f.text()
-                console.log(resp)
+                console.log("Esta es la respuesta: " + resp)
                 token = resp
                 console.log(token);
                 mailUser = mail;
-                if(mailUser == "admin@mail.com") {
-                    divAdmin.style.display = "flex"
+                if(resp != "") {
+                    if (mailUser == "admin@mail.com") {
+                        divAdmin.style.display = "flex"
+                    }
+                    console.log(mailUser);
+                    contenedorWeb.style.display = "flex";
+                    contenedorLogin.style.display = "none";
+                    getViajes()
                 }
-                console.log(mailUser);
-                contenedorWeb.style.display = "flex";
-                contenedorLogin.style.display = "none";
-                getViajes()
             }catch(error){
                 console.log(error)
             }

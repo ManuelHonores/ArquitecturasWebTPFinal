@@ -153,5 +153,16 @@
     <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.8" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet.staxex:stax-ex:1.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.16" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:2.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-batch:2.3.4.RELEASE" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework.batch:spring-batch-core:4.2.4.RELEASE" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.micrometer:micrometer-core:1.5.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hdrhistogram:HdrHistogram:2.1.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: javax.batch:javax.batch-api:1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.jettison:jettison:1.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework.batch:spring-batch-infrastructure:4.2.4.RELEASE" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework.retry:spring-retry:1.2.5.RELEASE" level="project" />
   </component>
 </module>

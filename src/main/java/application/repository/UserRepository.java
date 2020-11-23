@@ -2,6 +2,7 @@ package application.repository;
 
 
 import application.entity.Plan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import application.entity.User;

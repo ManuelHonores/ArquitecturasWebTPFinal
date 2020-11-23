@@ -1,5 +1,5 @@
 application
-application.controller
+application.com.example.demo.testJUnit
 application.entity
 application.login
 application.login_controllers
