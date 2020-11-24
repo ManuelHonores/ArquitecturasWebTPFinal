@@ -4,6 +4,17 @@
 ## _Create Data_
 [link a repositorio donde se encuentra el proyecto para generar datos de prueba.](https://github.com/ManuelHonores/CreateData-ArquitecturaTPFinal)
 
+### Usuarios para testeo
+~~~ 
+ - Usuario Admin:
+   mail = admin@mail.com
+   password = 123
+ 
+ - Usuario comun:
+   mail = user2@gmail.com
+   password = 123
+~~~
+
 ## _Agenda de Viajes_
 Como primer paso, se analizó en profundidad el enunciado para poder identificar las entidades necesarias para resolver el trabajo práctico.
 Posteriormente, se comenzaron a diagramar las vistas y tablas para poder tener una estructura de nuestro sistema. A Continuación, detallaremos cada una de ellas:
