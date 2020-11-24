@@ -79,7 +79,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * usuarios en orden ascendente.
      */
     // Reporte de compañia por zona geográfica
-    @Query("SELECT t.continent FROM Travel t GROUP BY t.continent ORDER BY count(t.continent) ASC")
+    @Query("SELECT t.continent FROM Travel t GROUP BY t.continent ORDER BY count(t.continent) DESC")
     public List<String> reportUserContinent();
 
     @Query("SELECT u FROM User u WHERE u.id =:id")

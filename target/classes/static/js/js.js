@@ -223,6 +223,8 @@ if(formHotel!=null){
         let fechaIniPlan = new Date(fechaInicioPlan)
         let fechaFinPlan = document.getElementById("fechaFinPlan").value
         let fechaFPlan = new Date(fechaFinPlan)
+        let hotelNomebre = document.getElementById('hotel').value
+        console.log(hotelNomebre)
         let finished;
         if(fechaFPlan < new Date()) {
             finished = true;
@@ -240,7 +242,7 @@ if(formHotel!=null){
             "day_end" : fechaFPlan.getDate()+1,
             "month_end" : fechaFPlan.getMonth()+1,
             "year_end" : fechaFPlan.getFullYear(),
-            "name_hotel" : document.getElementById('hotel').value
+            "nameHotel" : document.getElementById('hotel').value
         }
         await fetch('hotels/' + idViaje, {
             method : 'POST',
@@ -309,10 +311,20 @@ let selectUserReports = document.getElementById('selectUserReports')
 
 function selectContinents(viajes) {
     let select = document.getElementById("continents");
+    let array = [];
+
+    for(let i=0; i<viajes.length; i++) {
+        if(!array.includes(viajes[i].continent)) {
+            array.push(viajes[i].continent)
+        }
+    }
+
+    console.log(array);
+
     select.innerHTML = "";
 
-    for(let j=0; j<viajes.length; j++) {
-        select.innerHTML += "<option value=" + viajes[j].continent + ">" + viajes[j].continent + "</option>"
+    for(let j=0; j<array.length; j++) {
+        select.innerHTML += "<option value=" + array[j] + ">" + array[j] + "</option>"
     }
 
 }
@@ -499,7 +511,7 @@ function showReportCompany(data) {
     let divReports = document.getElementById("showReports");
 
     if(data[0].hasOwnProperty("mail")) {
-        divReports.innerHTML += "Usuario" + "<br>"
+        divReports.innerHTML += "Usuarios que realizaron mas viajes (mayor a menor)" + "<br>"
         for(let i=0; i<data.length; i++) {
             divReports.innerHTML +=
                 "<ul>" + "<li>" + "ID de Usuario: " + data[i].id + "</li>" +
@@ -508,7 +520,7 @@ function showReportCompany(data) {
                 "</ul>"
         }
     } else {
-        divReports.innerHTML += "Continentes mas visitados: " + "<br>"
+        divReports.innerHTML += "Continentes mas visitados (mayor a menor): " + "<br>"
         for(let j=0; j<data.length; j++) {
             divReports.innerHTML += "<ul>" + "<li>" + "Nombre: " + data[j] + "</li>" + "</ul>"
         }
@@ -557,6 +569,8 @@ if(formLogin != null) {
                     contenedorLogin.style.display = "none";
                     getViajes()
                 }
+                let parrafo = document.getElementById("errorLogin");
+                parrafo.innerHTML += "El usuario o la contraseña son incorrectos"
             }catch(error){
                 console.log(error)
             }

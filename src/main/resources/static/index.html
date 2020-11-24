@@ -23,6 +23,9 @@
         <input id="passwordLogin" type="password" placeholder="password" required>
         <input type="submit" value="Iniciar sesión">
     </form>
+    <div>
+        <p id="errorLogin"></p>
+    </div>
     <h3>Registrarse</h3>
     <form id="formRegister">
         <label for="nameRegister">Nombre:</label>
@@ -160,12 +163,6 @@
 
         <form class="agregarVuelo">
             <h3>Vuelo</h3>
-            <select name="select">
-                <option value="vueloFormulario">Agregar por formulario</option>
-                <!-- Acá tendría un select para elegir el viaje asociado al vuelo.
-                    Acá también iría el formulario para que el usuario llene el vuelo. -->
-                <option value="vueloAutomatico">Agregar automáticamente</option>
-            </select>
 
             <label for="nroVuelo">Número de vuelo:</label>
             <input type="number" id="nroVuelo" name="nroVuelo" required><br><br>
@@ -205,12 +202,6 @@
 
         <form class="agregarReserva">
             <h3>Reserva</h3>
-            <select name="select">
-                <option value="reservaFormulario">Agregar por formulario</option>
-                <!-- Acá tendría un select para elegir el viaje asociado al vuelo.
-                Acá también iría el formulario para que el usuario llene el vuelo. -->
-                <option value="cargarArchivo">Cargar archivo</option> <!--Ubicar la reserva según viaje-->
-            </select>
 
             <label for="hotel">Hotel:</label>
             <input type="text" id="hotel" name="hotel" required><br><br>
